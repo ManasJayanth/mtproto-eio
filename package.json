@@ -1,0 +1,30 @@
+{
+  "name": "mtproto-eio",
+  "version": "0.1.0",
+  "description": "mtproto",
+  "esy": {
+    "build": "dune build -p #{self.name}",
+    "buildDev": "dune build"
+  },
+  "//": "Base is needed by the vendored mtproto.ml generated in src/tl",
+  "dependencies": {
+    "@opam/ppx_expect": "*",
+    "@opam/ppx_deriving": "*",
+    "@opam/ppx_hash": "*",
+    "@opam/ppx_compare": "*",
+    "@opam/ppx_sexp_conv": "*",
+    "@opam/dune": "*",
+    "@opam/reason": "*",
+    "@opam/eio_main": "*",
+    "@opam/menhir": "*",
+    "@opam/base": "*",
+    "ocaml": "5.x"
+  },
+  "devDependencies": {
+    "@opam/merlin": "*",
+    "@opam/ocamlformat": "*",
+    "@opam/ocamlformat-rpc": "*",
+    "@opam/utop": "*",
+    "@opam/ocaml-lsp-server": "*"
+  }
+}
