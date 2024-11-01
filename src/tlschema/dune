@@ -1,0 +1,23 @@
+(rule
+  (target Mtproto.ml)
+  (deps
+    %{project_root}/src/tl/cli/TLCli.exe
+    %{project_root}/schema/mtproto.tl
+  )
+  (action (run %{deps} %{target}))
+)
+
+(rule
+  (target Telegram.ml)
+  (deps
+    %{project_root}/src/tl/cli/TLCli.exe
+    %{project_root}/schema/l143.tl
+  )
+  (action (run %{deps} %{target}))
+)
+
+(library
+  (name TLSchema)
+  (public_name mtproto-eio.tlschema)
+  (libraries base mtproto-eio.tl.runtime)
+)

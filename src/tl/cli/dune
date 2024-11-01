@@ -1,0 +1,3 @@
+(executable
+  (name TLCli)
+  (libraries base mtproto-eio.tl.lib))

@@ -1,0 +1,11 @@
+(ocamllex (modules Lexer))
+(menhir (modules MenhirParser))
+
+(library
+  (name TLLib)
+  (public_name mtproto-eio.tl.lib)
+  (libraries base ppx_deriving fmt)
+  (preprocess (pps ppx_expect ppx_deriving.show ppx_sexp_conv ppx_compare ppx_hash))
+  (inline_tests)
+  ; (instrumentation (backend bisect_ppx))
+)

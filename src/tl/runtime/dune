@@ -1,0 +1,4 @@
+(library
+ (name TLRuntime)
+ (public_name mtproto-eio.tl.runtime)
+ (libraries cstruct))
