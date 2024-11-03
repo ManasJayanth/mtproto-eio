@@ -1,3 +1,3 @@
 (executable
  (name main)
- (libraries mtproto_server))
+ (libraries mtproto_transport mirage-crypto-rng mirage-crypto-rng-eio mtproto-eio.tl.runtime mtproto-eio.tlschema))

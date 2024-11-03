@@ -18,8 +18,6 @@ type data = Cstruct.t
 
  *)
 
-(* [> [> `Generic] Eio.Net.ty ] Eio.Resource.t *)
-(* type 'resource_typ = [> [> `Generic] Eio.Net.ty ] *)
 val connect :
   sw:Eio.Switch.t ->
   network_resource: [ `Generic | `Unix ] Eio.Net.ty Eio.Resource.t ->
@@ -27,5 +25,8 @@ val connect :
   port:int ->
   connection
 
-(** [send ~sw ~connection data] sends [data] over the connection under the Switch instance [sw] *)
-(* val send: sw:Eio.Switch.t -> connection:connection -> data -> unit *)
+(** [send ~connection data] sends [data] over the connection under the Switch instance [sw] *)
+val send: connection:connection -> data -> unit
+
+(** [receive ~connection n_bytes] expects to receive exactly [n_bytes] of data from the connection *)
+val receive: connection:connection -> int -> unit

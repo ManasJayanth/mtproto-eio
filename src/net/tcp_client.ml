@@ -5,4 +5,9 @@ type data = Cstruct.t
 let connect ~sw ~network_resource ~host ~port =
   Eio.Net.connect ~sw network_resource (`Tcp (host, port))
 
-(* let send ~sw ~connection data = *)
+let send ~connection data =
+  Eio.Flow.write connection  [data ]
+
+let receive ~connection n_bytes =
+  let buffer = Cstruct.create n_bytes in
+  Eio.Flow.read_exact connection buffer
