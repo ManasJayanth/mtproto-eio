@@ -1,12 +1,10 @@
 type connection = [ `Generic | `Unix ] Eio.Net.stream_socket_ty Eio.Resource.t
-
 type data = Cstruct.t
 
 let connect ~sw ~network_resource ~host ~port =
   Eio.Net.connect ~sw network_resource (`Tcp (host, port))
 
-let send ~connection data =
-  Eio.Flow.write connection  [data ]
+let send ~connection data = Eio.Flow.write connection [ data ]
 
 let receive ~connection n_bytes =
   let buffer = Cstruct.create n_bytes in

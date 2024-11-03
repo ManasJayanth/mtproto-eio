@@ -8,8 +8,11 @@ let () =
   let ping_tl ~env sw =
     let network_resource = Eio.Stdenv.net env in
     let client = Mtproto_transport.create ~sw ~network_resource () in
+
     let data = mtproto_request_pq () in
-    Mtproto_transport.send ~client data
+    let payload = Mtproto_transport.generate_payload ~data in
+    (* Wrap the data in a payload of it's own *)
+    Mtproto_transport.send ~client payload
   in
   Eio_main.run @@ fun env ->
   Mirage_crypto_rng_eio.run (module Mirage_crypto_rng.Fortuna) env @@ fun () ->

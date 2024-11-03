@@ -1,5 +1,6 @@
 open Eio.Std
 module Read = Eio.Buf_read
+
 let send_addr = `Tcp (Eio.Net.Ipaddr.V4.loopback, 8080)
 let recv_addr = `Tcp (Eio.Net.Ipaddr.V4.loopback, 8081)
 
@@ -24,14 +25,17 @@ let main ~pool ~net =
   let recv_socket =
     Eio.Net.listen net ~sw ~reuse_addr:true ~backlog:5 recv_addr
   in
-  let submit_to_pool socket loop = fun () ->
-        Eio.Net.run_server socket loop ~on_error:(fun exn ->
-            Printf.printf "%s\n" (Printexc.to_string exn)) in
-  let _ =
-    Eio.Executor_pool.submit_fork ~sw ~weight:1.0 pool (submit_to_pool send_socket send_loop)
+  let submit_to_pool socket loop () =
+    Eio.Net.run_server socket loop ~on_error:(fun exn ->
+        Printf.printf "%s\n" (Printexc.to_string exn))
   in
   let _ =
-    Eio.Executor_pool.submit_fork ~sw ~weight:1.0 pool (submit_to_pool recv_socket recv_loop)
+    Eio.Executor_pool.submit_fork ~sw ~weight:1.0 pool
+      (submit_to_pool send_socket send_loop)
+  in
+  let _ =
+    Eio.Executor_pool.submit_fork ~sw ~weight:1.0 pool
+      (submit_to_pool recv_socket recv_loop)
   in
   Promise.await promise
 
