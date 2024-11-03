@@ -1,5 +1,5 @@
 {
-  "checksum": "15d08ecb0f06ebb327ff7c0fad1e2740",
+  "checksum": "dca361a6d147ffbdd5bb784a628344e5",
   "root": "mtproto-eio@link-dev:./package.json",
   "node": {
     "ocaml@5.2.0@d41d8cd9": {
@@ -33,6 +33,7 @@
         "@opam/ppx_expect@opam:v0.17.2@cc4e0659",
         "@opam/ppx_deriving@opam:6.0.3@07226955",
         "@opam/ppx_compare@opam:v0.17.0@db93463f",
+        "@opam/mirage-crypto-rng-eio@opam:1.1.0@04c9f00b",
         "@opam/menhir@opam:20240715@454ed5d1",
         "@opam/eio_main@opam:1.1@d1546604",
         "@opam/dune@opam:3.16.0@33c4c9fe", "@opam/base@opam:v0.17.1@699decbd"
@@ -1827,6 +1828,104 @@
       "devDependencies": [ "ocaml@5.2.0@d41d8cd9" ],
       "available": "true"
     },
+    "@opam/mirage-crypto-rng-eio@opam:1.1.0@04c9f00b": {
+      "id": "@opam/mirage-crypto-rng-eio@opam:1.1.0@04c9f00b",
+      "name": "@opam/mirage-crypto-rng-eio",
+      "version": "opam:1.1.0",
+      "source": {
+        "type": "install",
+        "source": [
+          "archive:https://opam.ocaml.org/cache/sha256/c7/c7189767a7ead54923cab020f39cd0c34af7d4b048776939d94f028abf536353#sha256:c7189767a7ead54923cab020f39cd0c34af7d4b048776939d94f028abf536353",
+          "archive:https://github.com/mirage/mirage-crypto/releases/download/v1.1.0/mirage-crypto-1.1.0.tbz#sha256:c7189767a7ead54923cab020f39cd0c34af7d4b048776939d94f028abf536353"
+        ],
+        "opam": {
+          "name": "mirage-crypto-rng-eio",
+          "version": "1.1.0",
+          "path": "esy.lock/opam/mirage-crypto-rng-eio.1.1.0"
+        }
+      },
+      "overrides": [],
+      "dependencies": [
+        "ocaml@5.2.0@d41d8cd9", "@opam/mtime@opam:2.1.0@2d0e05a6",
+        "@opam/mirage-crypto-rng@opam:1.1.0@d7b5901c",
+        "@opam/logs@opam:0.7.0@a2c1229c", "@opam/eio@opam:1.1@d6b78d1a",
+        "@opam/duration@opam:0.2.1@2197a2f1",
+        "@opam/dune@opam:3.16.0@33c4c9fe", "@esy-ocaml/substs@0.0.1@d41d8cd9"
+      ],
+      "devDependencies": [
+        "ocaml@5.2.0@d41d8cd9", "@opam/mtime@opam:2.1.0@2d0e05a6",
+        "@opam/mirage-crypto-rng@opam:1.1.0@d7b5901c",
+        "@opam/logs@opam:0.7.0@a2c1229c", "@opam/eio@opam:1.1@d6b78d1a",
+        "@opam/duration@opam:0.2.1@2197a2f1",
+        "@opam/dune@opam:3.16.0@33c4c9fe"
+      ],
+      "available": "true"
+    },
+    "@opam/mirage-crypto-rng@opam:1.1.0@d7b5901c": {
+      "id": "@opam/mirage-crypto-rng@opam:1.1.0@d7b5901c",
+      "name": "@opam/mirage-crypto-rng",
+      "version": "opam:1.1.0",
+      "source": {
+        "type": "install",
+        "source": [
+          "archive:https://opam.ocaml.org/cache/sha256/c7/c7189767a7ead54923cab020f39cd0c34af7d4b048776939d94f028abf536353#sha256:c7189767a7ead54923cab020f39cd0c34af7d4b048776939d94f028abf536353",
+          "archive:https://github.com/mirage/mirage-crypto/releases/download/v1.1.0/mirage-crypto-1.1.0.tbz#sha256:c7189767a7ead54923cab020f39cd0c34af7d4b048776939d94f028abf536353"
+        ],
+        "opam": {
+          "name": "mirage-crypto-rng",
+          "version": "1.1.0",
+          "path": "esy.lock/opam/mirage-crypto-rng.1.1.0"
+        }
+      },
+      "overrides": [],
+      "dependencies": [
+        "ocaml@5.2.0@d41d8cd9", "@opam/mirage-crypto@opam:1.1.0@9a00073e",
+        "@opam/logs@opam:0.7.0@a2c1229c",
+        "@opam/duration@opam:0.2.1@2197a2f1",
+        "@opam/dune-configurator@opam:3.16.0@29bae660",
+        "@opam/dune@opam:3.16.0@33c4c9fe",
+        "@opam/digestif@opam:1.2.0@323248bf",
+        "@esy-ocaml/substs@0.0.1@d41d8cd9"
+      ],
+      "devDependencies": [
+        "ocaml@5.2.0@d41d8cd9", "@opam/mirage-crypto@opam:1.1.0@9a00073e",
+        "@opam/logs@opam:0.7.0@a2c1229c",
+        "@opam/duration@opam:0.2.1@2197a2f1",
+        "@opam/dune-configurator@opam:3.16.0@29bae660",
+        "@opam/dune@opam:3.16.0@33c4c9fe",
+        "@opam/digestif@opam:1.2.0@323248bf"
+      ],
+      "available": "true"
+    },
+    "@opam/mirage-crypto@opam:1.1.0@9a00073e": {
+      "id": "@opam/mirage-crypto@opam:1.1.0@9a00073e",
+      "name": "@opam/mirage-crypto",
+      "version": "opam:1.1.0",
+      "source": {
+        "type": "install",
+        "source": [
+          "archive:https://opam.ocaml.org/cache/sha256/c7/c7189767a7ead54923cab020f39cd0c34af7d4b048776939d94f028abf536353#sha256:c7189767a7ead54923cab020f39cd0c34af7d4b048776939d94f028abf536353",
+          "archive:https://github.com/mirage/mirage-crypto/releases/download/v1.1.0/mirage-crypto-1.1.0.tbz#sha256:c7189767a7ead54923cab020f39cd0c34af7d4b048776939d94f028abf536353"
+        ],
+        "opam": {
+          "name": "mirage-crypto",
+          "version": "1.1.0",
+          "path": "esy.lock/opam/mirage-crypto.1.1.0"
+        }
+      },
+      "overrides": [],
+      "dependencies": [
+        "ocaml@5.2.0@d41d8cd9", "@opam/eqaf@opam:0.10@bfccc7c0",
+        "@opam/dune-configurator@opam:3.16.0@29bae660",
+        "@opam/dune@opam:3.16.0@33c4c9fe", "@esy-ocaml/substs@0.0.1@d41d8cd9"
+      ],
+      "devDependencies": [
+        "ocaml@5.2.0@d41d8cd9", "@opam/eqaf@opam:0.10@bfccc7c0",
+        "@opam/dune-configurator@opam:3.16.0@29bae660",
+        "@opam/dune@opam:3.16.0@33c4c9fe"
+      ],
+      "available": "true"
+    },
     "@opam/mew_vi@opam:0.5.0@d256e562": {
       "id": "@opam/mew_vi@opam:0.5.0@d256e562",
       "name": "@opam/mew_vi",
@@ -2509,6 +2608,32 @@
       ],
       "available": "true"
     },
+    "@opam/eqaf@opam:0.10@bfccc7c0": {
+      "id": "@opam/eqaf@opam:0.10@bfccc7c0",
+      "name": "@opam/eqaf",
+      "version": "opam:0.10",
+      "source": {
+        "type": "install",
+        "source": [
+          "archive:https://opam.ocaml.org/cache/sha256/67/67d1369c57c4d2d14a10d02632d45e355224abeb98aec08979c0bae5843092ee#sha256:67d1369c57c4d2d14a10d02632d45e355224abeb98aec08979c0bae5843092ee",
+          "archive:https://github.com/mirage/eqaf/releases/download/v0.10/eqaf-0.10.tbz#sha256:67d1369c57c4d2d14a10d02632d45e355224abeb98aec08979c0bae5843092ee"
+        ],
+        "opam": {
+          "name": "eqaf",
+          "version": "0.10",
+          "path": "esy.lock/opam/eqaf.0.10"
+        }
+      },
+      "overrides": [],
+      "dependencies": [
+        "ocaml@5.2.0@d41d8cd9", "@opam/dune@opam:3.16.0@33c4c9fe",
+        "@esy-ocaml/substs@0.0.1@d41d8cd9"
+      ],
+      "devDependencies": [
+        "ocaml@5.2.0@d41d8cd9", "@opam/dune@opam:3.16.0@33c4c9fe"
+      ],
+      "available": "true"
+    },
     "@opam/either@opam:1.0.0@378fa7c4": {
       "id": "@opam/either@opam:1.0.0@378fa7c4",
       "name": "@opam/either",
@@ -2720,6 +2845,32 @@
       ],
       "available": "true"
     },
+    "@opam/duration@opam:0.2.1@2197a2f1": {
+      "id": "@opam/duration@opam:0.2.1@2197a2f1",
+      "name": "@opam/duration",
+      "version": "opam:0.2.1",
+      "source": {
+        "type": "install",
+        "source": [
+          "archive:https://opam.ocaml.org/cache/sha256/c7/c738c1f38cfb99820c121cd3ddf819de4b2228f0d50eacbd1cc3ce99e7c71e2b#sha256:c738c1f38cfb99820c121cd3ddf819de4b2228f0d50eacbd1cc3ce99e7c71e2b",
+          "archive:https://github.com/hannesm/duration/releases/download/v0.2.1/duration-0.2.1.tbz#sha256:c738c1f38cfb99820c121cd3ddf819de4b2228f0d50eacbd1cc3ce99e7c71e2b"
+        ],
+        "opam": {
+          "name": "duration",
+          "version": "0.2.1",
+          "path": "esy.lock/opam/duration.0.2.1"
+        }
+      },
+      "overrides": [],
+      "dependencies": [
+        "ocaml@5.2.0@d41d8cd9", "@opam/dune@opam:3.16.0@33c4c9fe",
+        "@esy-ocaml/substs@0.0.1@d41d8cd9"
+      ],
+      "devDependencies": [
+        "ocaml@5.2.0@d41d8cd9", "@opam/dune@opam:3.16.0@33c4c9fe"
+      ],
+      "available": "true"
+    },
     "@opam/dune-rpc@opam:3.16.0@e5eda23b": {
       "id": "@opam/dune-rpc@opam:3.16.0@e5eda23b",
       "name": "@opam/dune-rpc",
@@ -2893,6 +3044,33 @@
       ],
       "devDependencies": [
         "ocaml@5.2.0@d41d8cd9", "@opam/thread-table@opam:1.0.0@2e715999",
+        "@opam/dune@opam:3.16.0@33c4c9fe"
+      ],
+      "available": "true"
+    },
+    "@opam/digestif@opam:1.2.0@323248bf": {
+      "id": "@opam/digestif@opam:1.2.0@323248bf",
+      "name": "@opam/digestif",
+      "version": "opam:1.2.0",
+      "source": {
+        "type": "install",
+        "source": [
+          "archive:https://opam.ocaml.org/cache/sha256/c3/c30168cafe279a665367806b3e5e6398fd7474f1e5260e76826d5ec9d3b2a508#sha256:c30168cafe279a665367806b3e5e6398fd7474f1e5260e76826d5ec9d3b2a508",
+          "archive:https://github.com/mirage/digestif/releases/download/v1.2.0/digestif-1.2.0.tbz#sha256:c30168cafe279a665367806b3e5e6398fd7474f1e5260e76826d5ec9d3b2a508"
+        ],
+        "opam": {
+          "name": "digestif",
+          "version": "1.2.0",
+          "path": "esy.lock/opam/digestif.1.2.0"
+        }
+      },
+      "overrides": [],
+      "dependencies": [
+        "ocaml@5.2.0@d41d8cd9", "@opam/eqaf@opam:0.10@bfccc7c0",
+        "@opam/dune@opam:3.16.0@33c4c9fe", "@esy-ocaml/substs@0.0.1@d41d8cd9"
+      ],
+      "devDependencies": [
+        "ocaml@5.2.0@d41d8cd9", "@opam/eqaf@opam:0.10@bfccc7c0",
         "@opam/dune@opam:3.16.0@33c4c9fe"
       ],
       "available": "true"
