@@ -2,9 +2,14 @@ open Mtproto_net
 
 type client = Tcp_client.connection
 
-let create ?(host = Eio.Net.Ipaddr.of_raw "149.154.167.51") ?(port = 443) ~sw
+let create ?(host = Eio.Net.Ipaddr.of_raw "\149\154\167\051") ?(port = 443) ~sw
     ~network_resource () =
-  Tcp_client.connect ~sw ~network_resource ~host ~port
+  let client = Tcp_client.connect ~sw ~network_resource ~host ~port in
+  (* let ef = Cstruct.of_string "\xef" in *)
+  let ef =  Cstruct.of_bytes (Bytes.of_string "\239") in
+  Tcp_client.send ~connection:client ef;
+  client
+  
 
 let generate_payload ~data =
   let payload_len = Cstruct.length data in
