@@ -6,6 +6,8 @@ let connect ~sw ~network_resource ~host ~port =
 
 let send ~connection data = Eio.Flow.write connection [ data ]
 
+(** TODO review and improve API. This could be very slow *)
 let receive ~connection n_bytes =
   let buffer = Cstruct.create n_bytes in
-  Eio.Flow.read_exact connection buffer
+  Eio.Flow.read_exact connection buffer;
+  buffer

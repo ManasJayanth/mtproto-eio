@@ -29,4 +29,4 @@ val connect :
 val send: connection:connection -> data -> unit
 
 (** [receive ~connection n_bytes] expects to receive exactly [n_bytes] of data from the connection *)
-val receive: connection:connection -> int -> unit
+val receive: connection:connection -> int -> data
