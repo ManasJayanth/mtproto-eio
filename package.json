@@ -8,6 +8,7 @@
   },
   "//": "Base is needed by the vendored mtproto.ml generated in src/tl",
   "dependencies": {
+    "@opam/mirage-crypto-rng-eio": "*",
     "@opam/ppx_expect": "*",
     "@opam/ppx_deriving": "*",
     "@opam/ppx_hash": "*",
