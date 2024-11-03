@@ -10,7 +10,13 @@ let () =
     let client = Mtproto_transport.create ~sw ~network_resource () in
 
     let data = mtproto_request_pq () in
-    Mtproto_transport.send ~client data
+    Mtproto_transport.send ~client data;
+    let TLSchema.MTProto.TL_resPQ.
+          { nonce; server_nonce; pq; server_public_key_fingerprints } =
+      Mtproto_transport.receive ~client
+      |> TLRuntime.Decoder.of_cstruct |> TLSchema.MTProto.TL_resPQ.decode
+    in
+    ()
   in
   Eio_main.run @@ fun env ->
   Mirage_crypto_rng_eio.run (module Mirage_crypto_rng.Fortuna) env @@ fun () ->
