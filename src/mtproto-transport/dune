@@ -1,0 +1,3 @@
+(library
+ (name mtproto_transport)
+ (libraries transport))
