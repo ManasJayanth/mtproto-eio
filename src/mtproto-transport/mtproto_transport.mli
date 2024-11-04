@@ -1,6 +1,6 @@
 type client
 
-val client_of_abridge: Transport.Abridge.client -> client
+val client_of_abridge : Transport.Abridge.client -> client
 (** Takes an abridge transport client and return [client] *)
 
 val send : client:client -> Cstruct.t -> unit

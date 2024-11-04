@@ -8,26 +8,26 @@ let () =
   let ping_tl ~env sw =
     let network_resource = Eio.Stdenv.net env in
     let client =
-      Mtproto_transport.client_of_abridge @@
-      Transport.Abridge.create ~sw ~network_resource
-        ~host:(Eio.Net.Ipaddr.of_raw "\149\154\167\040")
-        ~port:80 ()
+      Mtproto_transport.client_of_abridge
+      @@ Transport.Abridge.create ~sw ~network_resource
+           ~host:(Eio.Net.Ipaddr.of_raw "\149\154\167\040")
+           ~port:80 ()
     in
     let data = mtproto_request_pq () in
     print_endline "Sending data";
     Mtproto_transport.send ~client data;
     print_endline "Sent. Waiting...";
-    let TLSchema.MTProto.TL_resPQ.
+    let (TL_resPQ
           {
             nonce;
             server_nonce = _;
             pq = _;
             server_public_key_fingerprints = _;
-          } =
+          }) =
       Mtproto_transport.receive ~client
-      |> TLRuntime.Decoder.of_cstruct |> TLSchema.MTProto.TL_resPQ.decode
+      |> TLRuntime.Decoder.of_cstruct |> TLSchema.MTProto.TLT_ResPQ.decode
     in
-    print_endline ("Received server response" ^ Cstruct.to_string nonce)
+    print_endline ("Received nonce: " ^ Cstruct.to_hex_string nonce)
   in
   Eio_main.run @@ fun env ->
   Mirage_crypto_rng_eio.run (module Mirage_crypto_rng.Fortuna) env @@ fun () ->

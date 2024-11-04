@@ -20,13 +20,13 @@ type data = Cstruct.t
 
 val connect :
   sw:Eio.Switch.t ->
-  network_resource: [ `Generic | `Unix ] Eio.Net.ty Eio.Resource.t ->
+  network_resource:[ `Generic | `Unix ] Eio.Net.ty Eio.Resource.t ->
   host:Eio.Net.Ipaddr.v4v6 ->
   port:int ->
   connection
 
+val send : connection:connection -> data -> unit
 (** [send ~connection data] sends [data] over the connection under the Switch instance [sw] *)
-val send: connection:connection -> data -> unit
 
+val receive : connection:connection -> int -> data
 (** [receive ~connection n_bytes] expects to receive exactly [n_bytes] of data from the connection *)
-val receive: connection:connection -> int -> data
