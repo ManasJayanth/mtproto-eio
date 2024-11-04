@@ -1,7 +1,25 @@
 open Transport
 type client = Abridge.client
 
-let generate_message_id () = 0L
+let time_offset = 0L
+
+  let generate_message_id () =
+    let open Int64 in
+    let sec_time_f = Unix.gettimeofday () in
+    let sec_time = of_float sec_time_f in
+    let ms_time = of_float (sec_time_f *. 1000.0) in
+    let ns_time = (mul ms_time 1000L) in
+    let new_msg_id =
+      (logor (shift_left (add sec_time time_offset) 32) (logand ns_time 0xffff_fffcL))
+    in
+    (* let new_msg_id = *)
+    (*   if t.last_msg_id >= new_msg_id *)
+    (*     then new_msg_id + 4L + (t.last_msg_id - new_msg_id) *)
+    (*     else new_msg_id *)
+    (* in *)
+    (* t.last_msg_id <- new_msg_id; *)
+    new_msg_id
+
 
 let client_of_abridge x = x
 

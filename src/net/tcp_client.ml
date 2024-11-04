@@ -10,5 +10,7 @@ let send ~connection data =
 (** TODO review and improve API. This could be very slow *)
 let receive ~connection n_bytes =
   let buffer = Cstruct.create n_bytes in
+  print_endline "******";
   Eio.Flow.read_exact connection buffer;
+  print_endline "******";
   buffer
