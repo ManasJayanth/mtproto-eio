@@ -8,13 +8,13 @@ let () =
   let ping_tl ~env sw =
     let network_resource = Eio.Stdenv.net env in
     let client =
-      Mtproto_transport.create ~sw ~network_resource
+      Transport.Abridge.create ~sw ~network_resource
         ~host:(Eio.Net.Ipaddr.of_raw "\149\154\167\040")
         ~port:80 ()
     in
     let data = mtproto_request_pq () in
     print_endline "Sending data";
-    Mtproto_transport.send ~client data;
+    Transport.Abridge.send ~client data;
     print_endline "Sent. Waiting...";
     let TLSchema.MTProto.TL_resPQ.
           {
@@ -23,7 +23,7 @@ let () =
             pq = _;
             server_public_key_fingerprints = _;
           } =
-      Mtproto_transport.receive ~client
+      Transport.Abridge.receive ~client
       |> TLRuntime.Decoder.of_cstruct |> TLSchema.MTProto.TL_resPQ.decode
     in
     print_endline ("Received server response" ^ Cstruct.to_string nonce)
@@ -35,6 +35,5 @@ let () =
 
 (* wire shark filter: ip.dst == 149.154.167.051 or ip.src  == 149.154.167.051 *)
 (* ip.dst == 149.154.175.10 or ip.src  == 149.154.175.10 *)
-
 
 (* for more IPs, see https://github.com/zerobias/telegram-mtproto/blob/a8579e6c864ecbdc29851cf075d05f2da9a87f7a/src/service/dc-configurator.js#L9 *)

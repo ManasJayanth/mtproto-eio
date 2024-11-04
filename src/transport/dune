@@ -1,3 +1,3 @@
 (library
- (name mtproto_transport)
+ (name transport)
  (libraries mtproto_net))
