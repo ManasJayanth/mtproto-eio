@@ -2,7 +2,30 @@ open Transport
 
 type client = Abridge.client
 
-let time_offset = 0L
+let time_offset = 0L;;
+
+(*
+  In the following, we don't do what camlproto used to do if new_msg_id is not greater that the last one
+
+  
+   {[
+      if t.last_msg_id >= new_msg_id
+        then new_msg_id + 4L + (t.last_msg_id - new_msg_id)
+        else new_msg_id
+   }]
+
+   We see in other implementation that logical-anding with -4 is enough
+
+   See notes.org for more details.
+
+
+   1. Time dependent
+   2. 64 bit
+   3. Client -> Server
+   4. Must increase monotonicallly
+   5. Must approx equal unixtime * 2 * 32
+   6. Must fall in the time window: now - 30 seconds > x < now + 300 seconds
+*)
 
 let generate_message_id () =
   let open Int64 in
@@ -15,12 +38,6 @@ let generate_message_id () =
       (shift_left (add sec_time time_offset) 32)
       (logand ns_time 0xffff_fffcL)
   in
-  (* let new_msg_id = *)
-  (*   if t.last_msg_id >= new_msg_id *)
-  (*     then new_msg_id + 4L + (t.last_msg_id - new_msg_id) *)
-  (*     else new_msg_id *)
-  (* in *)
-  (* t.last_msg_id <- new_msg_id; *)
   new_msg_id
 
 let client_of_abridge x = x
