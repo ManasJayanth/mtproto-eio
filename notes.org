@@ -1,0 +1,80 @@
+* Faraday vs Cstruct
+** questions
+whats the difference between usual buffered io in libc vs iovec
+buffered io?
+
+https://ocaml.org/manual/5.2/api/Bigarray.html
+
+https://discuss.ocaml.org/t/hannes-mehnert-interview-about-mirageos-and-ocaml-by-evrone/5784/3
+
+https://discuss.ocaml.org/t/working-with-a-huge-data-chunks/3955
+https://discuss.ocaml.org/t/ann-cstruct-5-0-0-with-new-capability-types/3862
+
+https://github.com/ocaml-multicore/eio/pull/235/files#diff-735803d7d68859ad65cbb73e7b1eebdf5a0930eae791a87293427d98a93b1254
+https://github.com/ocaml-multicore/eio/blob/main/lib_eio/buf_write.ml
+https://github.com/inhabitedtype/bigstringaf
+https://ocaml-multicore.github.io/eio/eio/Eio/Flow/index.html
+https://github.com/ocaml-multicore/eio/issues/140
+https://gist.github.com/stedolan/318f87db9f59f1acea771e7f4dd59cd4
+https://discuss.ocaml.org/t/thrift-eio-flow-transport-suggestions/12385/6
+https://ocaml-multicore.github.io/eio/eio/Eio/index.html
+https://github.com/mirage/ocaml-cohttp/issues/821#issuecomment-1009039975
+** connection pooling
+https://devblogs.microsoft.com/premier-developer/the-art-of-http-connection-pooling-how-to-optimize-your-connections-for-peak-performance/
+** reference implementations
+JS https://github.com/spalt08/mtproto-js
+JS https://github.com/alik0211/mtproto-core
+JS https://github.com/zerobias/telegram-mtproto/
+c++ https://github.com/tplgy/tgl/
+golang https://github.com/xelaj/mtproto
+idris tl parser: https://github.com/Termina1/tlhydra/tree/937ac9742a9c14efdc23139326883857110be7cc
+
+
+* Notes
+
+** [2024-11-05 Tue 18:50] In the official spec, they mention that client parity must alway be even
+
+https://core.telegram.org/mtproto/description#important-checks
+#+begin_quote
+...and that msg_id has even parity for messages from client to server, and odd parity for messages from server to client.
+#+end_quote
+
+We don't see =camlproto= checking for parity and retrying the
+generation.
+
+Instead, it tries to zero out timestamp's last two bits (and bitwise-or it later)
+
+#+begin_src ocaml
+    let new_msg_id =
+      ((sec_time + t.time_offset) lsl 32) lor (ns_time land 0xffff_fffcL) in
+#+end_src
+
+=mtproto-go= has something similar which the author doesn't clear
+about either.
+
+#+begin_src go
+  // GenerateMessageId отдает по сути unix timestamp но ужасно специфическим образом
+  // TODO: нахуя нужно битовое и на -4??
+  // Translated:  why the hell do you need a bit and at -4??
+  func GenerateMessageId() int64 {
+	  const billion = 1000 * 1000 * 1000
+	  unixnano := time.Now().UnixNano()
+	  seconds := unixnano / billion
+	  nanoseconds := unixnano % billion
+	  return (seconds << 32) | (nanoseconds & -4)
+  }
+#+end_src
+
+bitwise-and with =-4= is seen in the c++ implementation too
+#+begin_src c++
+int64_t mtproto_client::generate_next_msg_id()
+{
+    int64_t next_id = static_cast<int64_t>(get_server_time()*(1LL << 32)) & -4;
+    if (next_id <= m_session->last_msg_id) {
+        next_id = m_session->last_msg_id += 4;
+    } else {
+        m_session->last_msg_id = next_id;
+    }
+    return next_id;
+}
+#+end_src
